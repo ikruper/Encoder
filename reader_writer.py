@@ -4,7 +4,7 @@ By Ian Kruper
 
 """
 
-from docx import Document
+import docx
 
 def reader(doc): #Accepts document name, return string of text from document
     try:
@@ -14,7 +14,7 @@ def reader(doc): #Accepts document name, return string of text from document
             doc.close()
             return text
         if doc[-4:] == "docx":
-            word_doc = Document(doc)
+            word_doc = docx.Document(doc)
             text = ""
             for p in word_doc.paragraphs:
                 text += p.text
@@ -31,7 +31,7 @@ def writer(doc, text): #Accepts document name and text to write, returns nothing
             doc.write(text)
             doc.close()
         if doc[-4:] == "docx":
-            dest_doc = Document()
+            dest_doc = docx.Document()
             dest_doc.add_paragraph(text)
             dest_doc.save(doc)
     except IOError:

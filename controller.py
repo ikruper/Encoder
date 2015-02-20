@@ -30,6 +30,8 @@ if com_sel == '0':
         text = raw_input("Enter text to encode/decode: ")
         if len(text) < 20:
             print "Text string must be at least 20 characters long. Please try again."
+        else:
+            break
     if text[-7:] == "xjjquxy":
         result = column_cypher.decrypter(text)
     else:
