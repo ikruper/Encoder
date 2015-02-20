@@ -49,7 +49,7 @@ if com_sel == '1':
             encrypted = column_cypher.encrypter(doc) #Impose 20 character lower limit for size of documents
             break
         except IOError:
-            print "No such file exists. Please enter a valid file."
+            print "File does not exist or has fewer than 20 characters. Please enter a valid file."
         
     dest_doc = raw_input("Enter a name for destination document: ")
     new_doc = reader_writer.writer(dest_doc, encrypted)
@@ -69,7 +69,7 @@ if com_sel == '2':
                 decrypted = column_cypher.decrypter(orig_doc)
                 break
         except IOError:
-            print "No such file exists. Please enter a valid file."
+            print "File does not exist. Please enter a valid file."
         except AssertionError:
             print "Selected file is not encoded. Please select an encoded file."
             

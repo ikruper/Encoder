@@ -9,30 +9,29 @@ import docx
 def reader(doc): #Accepts document name, return string of text from document
     try:
         if doc[-3:] == "txt":
-            doc = open(doc, 'r')
-            text = doc.read()
-            doc.close()
+            with open(doc, 'r') as doc:
+                text = doc.read()
+                if len(text) < 20:
+                    raise IOError
             return text
-        if doc[-4:] == "docx":
+        elif doc[-4:] == "docx":
             word_doc = docx.Document(doc)
             text = ""
             for p in word_doc.paragraphs:
                 text += p.text
                 text += '\n'
             return text[0:-1]
+        else:
+            raise IOError
     except IOError:
         raise IOError
         
 
 def writer(doc, text): #Accepts document name and text to write, returns nothing
-    try:
-        if doc[-3:] == "txt":
-            open(doc, 'w')
+    if doc[-3:] == "txt":
+        with open(doc, 'w') as doc:
             doc.write(text)
-            doc.close()
-        if doc[-4:] == "docx":
-            dest_doc = docx.Document()
-            dest_doc.add_paragraph(text)
-            dest_doc.save(doc)
-    except IOError:
-        raise IOError
+    elif doc[-4:] == "docx":
+        dest_doc = docx.Document()
+        dest_doc.add_paragraph(text)
+        dest_doc.save(doc)
